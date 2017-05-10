@@ -192,7 +192,7 @@ export default class ChartContainer extends React.Component {
     // Time scale
     //
 
-    const timeAxisHeight = 35;
+    const timeAxisHeight = 55;
     const timeAxisWidth = this.props.width - leftWidth - rightWidth;
 
     if (!this.props.timeRange) {

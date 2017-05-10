@@ -131,7 +131,11 @@ export default class TimeAxis extends React.Component {
       .selectAll(".tick")
       .select("text")
       .style("fill", labelColor)
-      .style("stroke", "none");
+      .style("stroke", "none")
+        .style("text-anchor", "end")
+		  .attr("dx", "-.8em")
+		  .attr("dy", ".15em")
+		  .attr("transform", "rotate(-15)" );
     select(ReactDOM.findDOMNode(this)) // eslint-disable-line
       .select("g")
       .selectAll(".tick")
