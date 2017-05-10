@@ -297,6 +297,7 @@ export default class ChartContainer extends React.Component {
           utc={this.props.utc}
           style={this.props.timeAxisStyle}
           format={this.props.format}
+          formatFunction={this.props.formatFunction}
           showGrid={this.props.showGrid}
           gridHeight={chartsHeight}
         />
@@ -406,6 +407,7 @@ ChartContainer.propTypes = {
    * as an actual date/time.
    */
   format: React.PropTypes.string,
+  formatFunction: React.PropTypes.func,
   /**
    * Time in milliseconds to transition from one Y-scale to the next
    */

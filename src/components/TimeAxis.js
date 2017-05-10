@@ -52,10 +52,10 @@ export default class TimeAxis extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-     const { scale, utc, format } = nextProps;
+     const { scale, utc, format, formatFunction } = nextProps;
      if (scaleAsString(this.props.scale) !== scaleAsString(scale) ||
        this.props.utc !== utc) {
-       this.renderTimeAxis(scale, format);
+       this.renderTimeAxis(scale, format, formatFunction);
      }
    }
 
@@ -65,13 +65,17 @@ export default class TimeAxis extends React.Component {
     return false;
   }
 
-  renderTimeAxis(scale, format) {
+  renderTimeAxis(scale, format, formatFunction) {
     let axis;
 
     const tickSize = this.props.showGrid ? -this.props.gridHeight : 10;
     const utc = this.props.utc;
 
-    if (format === "day") {
+    if (formatFunction) {
+		axis = axisBottom(scale)
+			.tickFormat(d => formatFunction(d))
+			.tickSizeOuter(0);
+    } else if (format === "day") {
       axis = axisBottom(scale)
         .tickArguments([utc ? utcDay : timeDay, 1])
         .tickFormat(timeFormat("%d"))
@@ -151,6 +155,7 @@ TimeAxis.propTypes = {
   showGrid: React.PropTypes.bool,
   gridHeight: React.PropTypes.number,
   format: React.PropTypes.string,
+  formatFunction : React.PropTypes.func,
   utc: React.PropTypes.bool,
   style: React.PropTypes.shape({
     labels: React.PropTypes.object, // eslint-disable-line
